@@ -3,19 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <title>Join</title>
+  <link th:replace="partials/header :: bootstrap">
 </head>
 <body>
+<div class="page-wrapper">
+  <nav th:replace="partials/navbar :: navbar"></nav>
 
-<nav th:replace="partials/navbar :: navbar"></nav>
+  <div th:if="${cohort.length() > 5}">
+    <h1 >Welcome to <span th:text="${cohort}"></span>!</h1>
+  </div>
 
-<div th:if="${cohort.length() > 5}">
-  <h1 >Welcome to <span th:text="${cohort}"></span>!</h1>
+  <form action="/join" method="post">
+    <input type="text" name="cohort" id="cohort-ip" class="field" />
+    <button type="submit">Join now</button>
+  </form>
+
+  <div class="container fixed-bottom">
+    <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+  </div>
 </div>
 
-<form action="/join" method="post">
-  <input type="text" name="cohort" id="cohort-ip" class="field" />
-  <button type="submit">Join now</button>
-</form>
-
+<script th:replace="partials/Bootstrap/bootstrap-script :: bootstrapScript"></script>
 </body>
 </html>

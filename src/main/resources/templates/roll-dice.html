@@ -2,11 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Roll Dice</title>
+  <link th:replace="partials/header :: bootstrap">
+
 </head>
 <body>
+<div class="page-wrapper">
+  <nav th:replace="partials/navbar :: navbar"></nav>
+
   <h1>Roll Dice</h1>
   <p>The dice rolled a <strong th:text="${diceRoll}">n</strong>.</p>
   <p>You guessed the number <strong th:text="${guess}">n</strong>.</p>
   <p th:text="${message}">Sorry, that's not the correct number. Try again!</p>
+
+  <div class="container fixed-bottom">
+    <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+  </div>
+</div>
+
+<script th:replace="partials/Bootstrap/bootstrap-script :: bootstrapScript"></script>
+
 </body>
 </html>

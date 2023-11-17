@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <title>Home</title>
+  <link th:replace="partials/header :: bootstrap">
+
 </head>
 <body>
+<div class="page-wrapper">
+  <nav th:replace="partials/navbar :: navbar"></nav>
 
-<h1>Hello, <span th:text="${name}">World</span>!</h1>
+  <h1>Hello, <span th:text="${name}">World</span>!</h1>
+
+  <div class="container fixed-bottom">
+    <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+  </div>
+</div>
+
+<script th:replace="partials/Bootstrap/bootstrap-script :: bootstrapScript"></script>
 
 </body>
 </html>
