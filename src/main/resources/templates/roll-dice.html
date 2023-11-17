@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Roll Dice</title>
+</head>
+<body>
+  <h1>Roll Dice</h1>
+  <p>The dice rolled a <strong th:text="${diceRoll}">n</strong>.</p>
+  <p>You guessed the number <strong th:text="${guess}">n</strong>.</p>
+  <p th:text="${message}">Sorry, that's not the correct number. Try again!</p>
+</body>
+</html>
