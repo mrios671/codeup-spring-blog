@@ -11,6 +11,7 @@
 
 <h1 th:text="${post.title}"></h1>
 <p th:text="${post.body}"></p>
+<p th:text="${post.getUsers().getEmail()}"></p>
 <div class="container fixed-bottom">
     <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
 </div>

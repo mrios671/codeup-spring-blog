@@ -1,7 +1,9 @@
 package com.codeup.codeupspringblog;
 
 import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    PostController(PostRepository postDao) {
+    PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts/index")
@@ -35,14 +39,13 @@ class PostController {
     }
     @PostMapping("/posts/create")
     public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
-
         Post newPost = new Post(title, body);
+        User user = userDao.getReferenceById(1L);
+        newPost.setUsers(user);
 
         postDao.save(newPost);
-
         return "redirect:/posts/index";
     }
-
     @GetMapping("/posts/delete/{id}")
     public String deletePostById(@PathVariable(name= "id") long id) {
         postDao.deleteById(id);
