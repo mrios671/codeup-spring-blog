@@ -1,15 +1,13 @@
 package com.codeup.codeupspringblog;
 
+import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.repositories.PostRepository;
-import com.mysql.cj.PreparedQuery;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
 
 @Controller
 class PostController {
@@ -31,9 +29,6 @@ class PostController {
         model.addAttribute("post", post);
         return "posts/show";
     }
-
-
-
     @GetMapping("/posts/create")
     public String createForm(){
         return "posts/create";

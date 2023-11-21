@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.models;
 
 
 import jakarta.persistence.*;
@@ -16,12 +16,23 @@ public class Post {
     @Column(nullable = false, length = 250)
     private String body;
 
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private User users;
+
     public Post(){};
 
-    public Post(Long id, String title, String body) {
+    public Post(Long id, String title, String body, User users) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.users = users;
+    }
+
+    public Post(String title, String body, User users) {
+        this.title = title;
+        this.body = body;
+        this.users = users;
     }
 
     public Post(String title, String body) {
