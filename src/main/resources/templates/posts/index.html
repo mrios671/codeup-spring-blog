@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Index</title>
+  <link th:replace="partials/header :: bootstrap">
+
 </head>
 <body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+
 <h1>All Posts</h1>
 <ul>
   <li th:each="post : ${posts}">
@@ -12,5 +16,10 @@
     <p th:text="${post.body}"></p>
   </li>
 </ul>
+<div class="container fixed-bottom">
+  <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+</div>
+<script th:replace="partials/Bootstrap/bootstrap-script :: bootstrapScript"></script>
+
 </body>
 </html>
