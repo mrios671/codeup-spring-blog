@@ -32,11 +32,7 @@ class PostController {
         return "posts/show";
     }
 
-    @GetMapping("/posts/delete/{id}")
-    public String deletePostById(@PathVariable(name= "id") long id){
-        postDao.deleteById(id);
-        return "redirect:/posts/index";
-    }
+
 
     @GetMapping("/posts/create")
     public String createForm(){
@@ -49,6 +45,28 @@ class PostController {
 
         postDao.save(newPost);
 
+        return "redirect:/posts/index";
+    }
+
+    @GetMapping("/posts/delete/{id}")
+    public String deletePostById(@PathVariable(name= "id") long id) {
+        postDao.deleteById(id);
+        return "redirect:/posts/index";
+    }
+
+    @GetMapping("/posts/edit/{id}")
+    public String editPostForm(@PathVariable(name = "id") long id, Model model){
+        Post post = postDao.findById(id).orElse(null);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/edit/{id}")
+    public String editPostById(@PathVariable(name = "id") long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
+        Post post = postDao.findById(id).orElse(null);
+        post.setTitle(title);
+        post.setBody(body);
+        postDao.save(post);
         return "redirect:/posts/index";
     }
 }

@@ -2,7 +2,6 @@ package com.codeup.codeupspringblog;
 
 
 import jakarta.persistence.*;
-import org.springframework.stereotype.Controller;
 
 @Entity
 @Table(name = "posts")
