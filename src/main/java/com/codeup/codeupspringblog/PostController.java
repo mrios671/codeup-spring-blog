@@ -4,6 +4,7 @@ import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,12 @@ class PostController {
 
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private EmailService emailService;
 
-    PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts/index")
@@ -43,6 +46,7 @@ class PostController {
         Post newPost = new Post(title, body);
         User user = userDao.getReferenceById(1L);
         newPost.setUsers(user);
+        emailService.prepareAndSend(newPost , "Post Created", "Hello, your post has been created!");
 
         postDao.save(newPost);
         return "redirect:/posts/index";

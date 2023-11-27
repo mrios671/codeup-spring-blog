@@ -7,13 +7,28 @@
 
 </head>
 <body>
-<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="page-wrapper">
+    <nav th:replace="partials/navbar :: navbar"></nav>
 
-<h1 th:text="${post.title}"></h1>
-<p th:text="${post.body}"></p>
-<p th:text="${post.getUsers().getEmail()}"></p>
-<div class="container fixed-bottom">
-    <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+    <div class="container">
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                <h3 class="card-title" th:text="${post.title}">Post Title</h3>
+                <p class="card-text" th:text="${post.body}">Post Body</p>
+                <em><p class="card-text text-body-tertiary" th:text="${post.getUsers().getEmail()}">Email</p></em>
+                <br>
+                <div class="d-flex">
+                    <div>
+                        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="pe-2">Edit</a>
+                        <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="ps-2">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container fixed-bottom">
+        <footer th:replace="partials/footer :: footer" class="mt-auto"></footer>
+    </div>
 </div>
 <script th:replace="partials/Bootstrap/bootstrap-script :: bootstrapScript"></script>
 

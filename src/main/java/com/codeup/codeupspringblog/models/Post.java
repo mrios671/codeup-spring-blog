@@ -23,8 +23,6 @@ public class Post {
     public Post() {
     }
 
-    ;
-
     public Post(Long id, String title, String body, User users) {
         this.id = id;
         this.title = title;
