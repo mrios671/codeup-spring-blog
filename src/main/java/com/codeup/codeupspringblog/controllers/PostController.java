@@ -1,16 +1,14 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 class PostController {
@@ -42,13 +40,14 @@ class PostController {
         return "posts/create";
     }
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body){
-        Post newPost = new Post(title, body);
-        User user = userDao.getReferenceById(1L);
-        newPost.setUsers(user);
-        emailService.prepareAndSend(newPost , "Post Created", "Hello, your post has been created!");
+    public String createPost(@ModelAttribute Post post){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedInUser.getId());
+        post.setUsers(user);
+        postDao.save(post);
+        emailService.prepareAndSend(post , "Post Created", "Hello, your post has been created!");
 
-        postDao.save(newPost);
+        postDao.save(post);
         return "redirect:/posts/index";
     }
     @GetMapping("/posts/delete/{id}")

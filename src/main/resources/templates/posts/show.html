@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Show</title>
     <link th:replace="partials/header :: bootstrap">
+    <link th:replace="partials/header :: stylesheet" />
 
 </head>
 <body>
@@ -17,10 +19,12 @@
                 <p class="card-text" th:text="${post.body}">Post Body</p>
                 <em><p class="card-text text-body-tertiary" th:text="${post.getUsers().getEmail()}">Email</p></em>
                 <br>
-                <div class="d-flex">
-                    <div>
-                        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="pe-2">Edit</a>
-                        <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="ps-2">Delete</a>
+                <div class="d-flex" sec:authorize="isAuthenticated()">
+                    <div th:if="${#authentication.principal.id == post.users.getId()}">
+                        <div>
+                            <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="pe-2">Edit</a>
+                            <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="ps-2">Delete</a>
+                        </div>
                     </div>
                 </div>
             </div>

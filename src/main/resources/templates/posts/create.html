@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
@@ -13,7 +14,7 @@
     <div class="container mt-5">
         <h1 class="text-center">Create a New Post</h1>
         <div class="row">
-            <form action="/posts/create" th:method="post" th:object="${createPost}" class="card mx-auto col-md-8">
+            <form th:action="@{/posts/create}" th:method="post" th:object="${createPost}" class="card mx-auto col-md-8">
                     <label for="title">Title:</label>
                     <input id="title" th:field="*{title}" class="form-control">
                     <label for="body">Body:</label>
